@@ -36,6 +36,9 @@ public class CheckoutModel : PageModel
 
     public BasketViewModel BasketModel { get; set; } = new BasketViewModel();
 
+    [BindProperty]
+    public string CardType { get; set; } = string.Empty;
+
     public async Task OnGet()
     {
         await SetBasketModelAsync();
