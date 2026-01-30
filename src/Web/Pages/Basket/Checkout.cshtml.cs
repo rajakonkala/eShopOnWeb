@@ -36,6 +36,9 @@ public class CheckoutModel : PageModel
 
     public BasketViewModel BasketModel { get; set; } = new BasketViewModel();
 
+    [BindProperty]
+    public string? CardTypeSelection { get; set; }
+
     public async Task OnGet()
     {
         await SetBasketModelAsync();
@@ -50,6 +53,12 @@ public class CheckoutModel : PageModel
             if (!ModelState.IsValid)
             {
                 return BadRequest();
+            }
+
+            // Log the selected card type for tracking
+            if (!string.IsNullOrEmpty(CardTypeSelection))
+            {
+                _logger.LogInformation($"User selected card type: {CardTypeSelection}");
             }
 
             var updateModel = items.ToDictionary(b => b.Id.ToString(), b => b.Quantity);
