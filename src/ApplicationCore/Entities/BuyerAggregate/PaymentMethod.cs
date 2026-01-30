@@ -6,4 +6,15 @@ public class PaymentMethod : BaseEntity
     public string? CardId { get; private set; } // actual card data must be stored in a PCI compliant system, like Stripe
     public string? Last4 { get; private set; }
     public CardType CardType { get; private set; }
+
+    #pragma warning disable CS8618 // Required by Entity Framework
+    private PaymentMethod() { }
+
+    public PaymentMethod(string? alias, string? cardId, string? last4, CardType cardType = CardType.Credit)
+    {
+        Alias = alias;
+        CardId = cardId;
+        Last4 = last4;
+        CardType = cardType;
+    }
 }
